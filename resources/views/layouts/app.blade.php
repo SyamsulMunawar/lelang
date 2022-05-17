@@ -40,6 +40,7 @@
                                 <li class="navbar-nav nr-auto">
                                     <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
                                 </li>
+                                @livewire('shop.bidlistnav')
                                 @livewire('shop.cartnav')
                             @endif
                         </ul>

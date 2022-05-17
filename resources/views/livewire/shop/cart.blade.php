@@ -6,8 +6,8 @@
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Name</th>
-                                <th>Price</th>
+                                <th>Nama Barang</th>
+                                <th>Harga</th>
                                 <th></th>
                             </tr>
                         </thead>

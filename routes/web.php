@@ -36,4 +36,6 @@ Route::group(['middleware' => ['auth', 'Ceklevel:peserta_lelang']], function(){
         ->name('shop.cart');
     Route::livewire('/checkout', 'shop.checkout')
         ->name('shop.checkout');
+    Route::livewire('/bidlist', 'shop.bidlist')
+        ->name('shop.bidlist');
 });
