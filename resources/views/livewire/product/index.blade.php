@@ -65,7 +65,7 @@
                                     <td scope="col">{{ $product->kategori }}</td>
                                     <td scope="col">{{ $product->size }}</td>
                                     <td scope="col">
-                                        <img src="{{ $product->image }}" alt="">
+                                        <img src="{{ asset('/storage/'.$product->image) }}" alt="" height="80">
                                     </td>
                                     <td scope="col">{{ $product->harga }}</td>
                                     <td>
