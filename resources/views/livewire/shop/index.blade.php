@@ -8,14 +8,16 @@
     </div>
 
     <div class="row">
-
         @foreach ($products as $product)
         <div class="col-sm-12 col-xs-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-80">
                 <img class="card-img-top img-fluid" src="{{ $product->image ? asset('/storage/'.$product->image) : 'https://via.placeholder.com/150' }}" alt="">
                 <div class="card-img-overlay" style="background-color: rgba(0,0,0,0.5);">
                     <h5 class="text-white">
-                        <strong>{{ $product->nama_barang }}</strong>
+                        <strong>
+                            <a href="{{ route('shop.detail') }}">
+                                {{ $product->nama_barang }}</strong>
+                            </a>
                     </h5>
                     <h6 class="text-white">Rp{{ number_format($product->harga,2,",",".") }}</h6>
                     <p class="text-white">

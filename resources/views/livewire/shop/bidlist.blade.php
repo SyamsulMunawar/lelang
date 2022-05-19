@@ -16,10 +16,22 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>baju</td>
-                                <td>Rp 1.200.000</td>
+                                <td>Jaket kulit keren</td>
+                                <td>Rp 30.000,00</td>
                                 <td>Selasa, 10 April 2022</td>
                                 <td>12.00 WITA</td>
+                                <td>
+                                    <button wire:click="" class="btn btn-sm btn-info">Detail Lelang</button>
+                                </td>
+                                <td>
+                                    <button wire:click="" class="btn btn-sm btn-danger">Batal ikuti</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Celana Jeans Pria</td>
+                                <td>Rp 15.000</td>
+                                <td>Selasa, 15 April 2022</td>
+                                <td>15.00 WITA</td>
                                 <td>
                                     <button wire:click="" class="btn btn-sm btn-info">Detail Lelang</button>
                                 </td>

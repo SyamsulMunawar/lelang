@@ -26,8 +26,8 @@ class Index extends Component
     {
         return view('livewire.shop.index', [
             'products' => $this->search === null ?
-                Product::latest()->paginate(4) :
-                Product::latest()->where('nama_barang', 'like', '%' . $this->search . '%')->paginate(4)
+                Product::latest()->paginate(8) :
+                Product::latest()->where('nama_barang', 'like', '%' . $this->search . '%')->paginate(8)
         ]);
     }
 
