@@ -15,15 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('id_barang');
-            $table->string('id_pelanggan');
+            $table->string('id_barang', 6)->unique();
+            $table->string('id_pelelang', 6)->index();
             $table->string('nama_barang');
-            $table->string('kategori');
-            $table->string('size');
-            $table->string('image')->nullable();
-            $table->double('harga');
+            $table->enum('kategori', ['Kemeja', 'Kaos', 'Celana Panjang', 'Celana Pendek', 'Rok', 'Topi', 'Hijab', 'Jaket', 'Sweater', 'Sepatu/Sandal']);
+            $table->string('ukuran');
+            $table->string('image');
+            $table->bigInteger('harga_awal'); 
             $table->text('deskripsi');
+            $table->enum('status', ['Belum dilelang', 'Telah Dilelang', 'Belum dibayar']);
             $table->timestamps();
+
+            $table->foreign('id_pelelang')->references('id_user')->on('users')->onDelete('cascade');
         });
     }
 

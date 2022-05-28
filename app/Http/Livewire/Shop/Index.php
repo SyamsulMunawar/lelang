@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\Shop;
 
-use App\Facades\Cart;
+use App\auction;
 use App\Product;
+use App\Facades\Cart;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -26,7 +28,7 @@ class Index extends Component
     {
         return view('livewire.shop.index', [
             'products' => $this->search === null ?
-                Product::latest()->paginate(8) :
+                Product::latest()->where('status', 'Telah dilelang')->paginate(8) :
                 Product::latest()->where('nama_barang', 'like', '%' . $this->search . '%')->paginate(8)
         ]);
     }
@@ -37,4 +39,20 @@ class Index extends Component
         Cart::add($product);
         $this->emit('addToCart');
     }
+
+    
+
+    public function ikutLelang($productId)
+    {
+        $product = Product::find($productId);
+        $lelang  = auction::where('id_barang', $product->id_barang)->get()[0];
+
+        bidlist::create([
+            'id_peserta'    => Auth::user()->id_user,
+            'id_barang'     => $product->id_barang,
+            'id_lelang'     => $lelang->id_lelang
+        ]);
+
+    }
+
 }

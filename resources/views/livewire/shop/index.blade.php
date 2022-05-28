@@ -19,12 +19,11 @@
                                 {{ $product->nama_barang }}</strong>
                             </a>
                     </h5>
-                    <h6 class="text-white">Rp{{ number_format($product->harga,2,",",".") }}</h6>
+                    <h6 class="text-white">Rp{{ number_format($product->harga_awal,2,",",".") }}</h6>
                     <p class="text-white">
                         {{ $product->deskripsi }}
                     </p>
-                    <button wire:click="ikut_lelang({{ $product->id }})" type="button" class="btn btn-sm btn-block btn-outline-secondary text-white">Ikut Lelang</button>
-                    <button wire:click="addToCart({{ $product->id }})" type="button" class="btn btn-sm btn-block btn-outline-secondary text-white">Add to cart</button>
+                    <button wire:click="ikutLelang({{ $product->id }})" type="button" class="btn btn-sm btn-block btn-outline-secondary text-white">Ikut Lelang</button>
                 </div>
             </div>
         </div>

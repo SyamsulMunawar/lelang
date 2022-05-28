@@ -50,10 +50,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'level'    => ['required'],
+            'nama'      => ['required', 'string', 'max:255'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'  => ['required', 'string', 'min:8', 'confirmed'],
+            'level'     => ['required'],
+            'umur'      =>['required', 'integer'],
+            'alamat'    =>['required'],
+            'no_hp'     =>['required', 'string', 'max:15'],
         ]);
     }
 
@@ -65,11 +68,41 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $id = User::max('id');
+        $id_user    = '';
+
+        if($id == null){
+            $data['level'] == 'peserta_lelang' ? $id_user == 'PL0001' : $id_user = 'P00001';
+        }
+        elseif($id !== null)
+        {
+            $jumlah_karakter_id = strlen($id);
+            $data['level'] == 'peserta_lelang' ? $total_karakter = 4 : $total_karakter = 5;
+
+            for($jumlah_karakter_id; $jumlah_karakter_id < $total_karakter; $jumlah_karakter_id++)
+            {
+                $id_user .= '0';
+            }
+                $id_user .= $id;
+                if($data['level'] == 'peserta_lelang')
+                {
+                    $id_user = 'PL' . $id_user++;
+                }
+                elseif($data['level'] == 'pelelang')
+                {
+                    $id_user = 'P' . $id_user++;
+                }
+        }
+        
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'level' => $data['level'],
+            'id_user'   => $id_user,
+            'nama'      => $data['nama'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'level'     => $data['level'],
+            'umur'      => $data['umur'],
+            'alamat'    => $data['alamat'],
+            'no_hp'     => $data['no_hp'],
         ]);
     }
 }

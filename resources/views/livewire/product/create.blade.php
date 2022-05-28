@@ -3,36 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <form wire:submit.prevent="store" method="POST" enctype="multipart/form-data">
-
                     <div class="form-group">
 
                         <div class="form-row">
                             <div class="col">
-                              <input wire:model="id_barang" type="text" class="form-control @error('id_barang') is-invalid @enderror" placeholder="id_barang">
-                              @error('id_barang')
-                                <span class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror
-                            </div>
-
-                            <div class="col">
-                                <input wire:model="id_pelanggan" type="text" class="form-control @error('id_pelanggan') is-invalid @enderror" placeholder="id_pelanggan">
-                                @error('id_pelanggan')
-                                <span class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <div class="form-row">
-                            <div class="col">
-                              <input wire:model="nama_barang" type="text" class="form-control @error('nama_barang') is-invalid @enderror" placeholder="nama_barang">
+                              <input wire:model="nama_barang" type="text" class="form-control @error('nama_barang') is-invalid @enderror" placeholder="Nama barang">
                               @error('nama_barang')
                                 <span class="invalid-feedback">
                                     <strong>{{ $message }}</strong>
@@ -41,7 +16,19 @@
                             </div>
 
                             <div class="col">
-                                <input wire:model="kategori" type="text" class="form-control @error('kategori') is-invalid @enderror" placeholder="kategori">
+                                <select wire:model="kategori" class="form-control @error('kategori') is-invalid @enderror" id="kategori">
+                                    <option value="">Pilih Kategori Pakaian</option>
+                                    <option value="Kemeja">Kemeja</option>
+                                    <option value="Kaos">Kaos</option>
+                                    <option value="Celana Panjang">Celana Panjang</option>
+                                    <option value="Celana Pendek">Celana Pendek</option>
+                                    <option value="Rok">Rok</option>
+                                    <option value="Topi">Topi</option>
+                                    <option value="Hijab">Hijab</option>
+                                    <option value="Jaket">Jaket</option>
+                                    <option value="Sweater">Sweater</option>
+                                    <option value="Sepatu/Sandal">Sepatu/Sandal</option>
+                                </select>
                                 @error('kategori')
                                 <span class="invalid-feedback">
                                     <strong>{{ $message }}</strong>
@@ -56,8 +43,8 @@
 
                         <div class="form-row">
                             <div class="col">
-                              <input wire:model="size" type="text" class="form-control @error('size') is-invalid @enderror" placeholder="size">
-                              @error('size')
+                              <input wire:model="ukuran" type="text" class="form-control @error('ukuran') is-invalid @enderror" placeholder="Ukuran">
+                              @error('ukuran')
                                 <span class="invalid-feedback">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -65,13 +52,14 @@
                             </div>
 
                             <div class="col">
-                                <input wire:model="harga" type="text" class="form-control @error('harga') is-invalid @enderror" placeholder="harga">
-                                @error('harga')
+                              <input wire:model="harga_awal" type="text" class="form-control @error('harga_awal') is-invalid @enderror" placeholder="Harga awal">
+                              @error('harga_awal')
                                 <span class="invalid-feedback">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
+                              @enderror
                             </div>
+
                         </div>
 
                     </div>
@@ -80,7 +68,7 @@
 
                         <div class="form-row">
                             <div class="col">
-                                <input wire:model="deskripsi" type="text" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="deskripsi">
+                                <textarea wire:model="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="deskripsi" cols="71" rows="5" placeholder="Deskripsi"></textarea>  
                                 @error('deskripsi')
                                 <span class="invalid-feedback">
                                     <strong>{{ $message }}</strong>
@@ -96,7 +84,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="">Image</label>
+                                    <label for="">Gambar</label>
                                     <input wire:model="image" type="file" class="form-control-file" id="image">
                                     
                                     @error('image')

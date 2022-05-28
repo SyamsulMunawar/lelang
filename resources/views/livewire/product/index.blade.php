@@ -43,13 +43,14 @@
                          <thead class="thead-dark">
                              <tr>
                                  <th scope="col">#</th>
-                                 <th scope="col">Id Barang</th>
-                                 <th scope="col">Id Pelanggan</th>
                                  <th scope="col">Nama Barang</th>
                                  <th scope="col">Kategori</th>
-                                 <th scope="col">Size</th>
+                                 <th scope="col">Ukuran</th>
                                  <th scope="col">Gambar</th>
-                                 <th scope="col">Harga</th>
+                                 <th scope="col">Harga Awal</th>
+                                 <th scope="col">Deskripsi</th>
+                                 <th scope="col">Status Barang</th>
+                                 <th scope="col">Jadwal Lelang</th>
                                  <th scope="col">Aksi</th>
                              </tr>
                          </thead>
@@ -59,18 +60,22 @@
                                 <?php $no++ ?>
                                 <tr>
                                     <td scope="row">{{ $no }}</td>
-                                    <td scope="col">{{ $product->id_barang }}</td>
-                                    <td scope="col">{{ $product->id_pelanggan }}</td>
                                     <td scope="col">{{ $product->nama_barang }}</td>
                                     <td scope="col">{{ $product->kategori }}</td>
-                                    <td scope="col">{{ $product->size }}</td>
+                                    <td scope="col">{{ $product->ukuran }}</td>
                                     <td scope="col">
                                         <img src="{{ asset('/storage/'.$product->image) }}" alt="" height="80">
                                     </td>
-                                    <td scope="col">{{ $product->harga }}</td>
+                                    <td scope="col">Rp{{ number_format($product->harga_awal,2,",",".") }}</td>
+                                    <td scope="col">{{ $product->deskripsi }}</td>
+                                    <td scope="col">{{ $product->status }}</td>
+                                    <td scope="col"></td>
                                     <td>
                                         <button wire:click="editProduct({{ $product->id }})" class="btn btn-sm btn-info">Edit</button>
                                         <button wire:click="deleteProduct({{ $product->id }})" class="btn btn-sm btn-danger">Hapus</button>
+                                        @if($product->status == 'Belum dilelang')
+                                            <button wire:click="ubahStatus({{ $product->id }})" class="btn btn-sm btn-success">Lelang barang</button>
+                                        @endif
                                     </td>
                                 </tr>
                              @endforeach
