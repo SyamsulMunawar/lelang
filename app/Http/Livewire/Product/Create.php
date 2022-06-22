@@ -4,21 +4,21 @@ namespace App\Http\Livewire\Product;
 
 use App\Product;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 
 class Create extends Component
 {
     use WithFileUploads;
 
-    public $id_barang;
-    public $id_pelanggan;
     public $nama_barang;
     public $kategori;
-    public $size;
+    public $ukuran;
     public $image;
-    public $harga;
+    public $harga_awal;
     public $deskripsi;
+
 
     public function render()
     {
@@ -27,15 +27,14 @@ class Create extends Component
 
     public function store()
     {
+        
         $this->validate([
-            'id_barang'     => 'required',
-            'id_pelanggan'  => 'required',
-            'nama_barang'   => 'required:max:50',
-            'kategori'      => 'required',
-            'size'          => 'required',
-            'image'         => 'image|max:2048',
-            'harga'         => 'required|numeric',
-            'deskripsi'     => 'required|max:180'
+            'nama_barang'       => 'required:max:50',
+            'kategori'          => 'required',
+            'ukuran'            => 'required',
+            'image'             => 'image|max:2048',
+            'harga_awal'        => 'required|numeric',
+            'deskripsi'         => 'required|max:180'
         ]);
 
         $imageName = '';
@@ -48,22 +47,43 @@ class Create extends Component
             . '-' . $this->image->getClientOriginalExtension();
 
             $this->image->storeAs('public', $imageName, 'local');
-
-
         }
 
+        $id = Product::max('id');
+        $id_barang    = '';
+
+        if($id == null){
+            $id_barang = 'B00001';
+        }
+        elseif($id !== null)
+        {
+            $jumlah_karakter_id = strlen($id);
+            
+
+            for($jumlah_karakter_id; $jumlah_karakter_id < 5; $jumlah_karakter_id++)
+            {
+                $id_barang .= '0';
+            }
+            $id++;
+            $id_barang .= $id;
+            $id_barang = 'B' . $id_barang;
+
+        }    
+        
         Product::create([
-            'id_barang'     => $this->id_barang,
-            'id_pelanggan'  => $this->id_pelanggan,
+            'id_barang'     => $id_barang,
+            'id_pelelang'   => Auth::user()->id_user,
             'nama_barang'   => $this->nama_barang,
             'kategori'      => $this->kategori,
-            'size'          => $this->size,
+            'ukuran'        => $this->ukuran,
             'image'         => $imageName,
-            'harga'         => $this->harga,
-            'deskripsi'     => $this->deskripsi
+            'harga_awal'    => $this->harga_awal,
+            'deskripsi'     => $this->deskripsi,
+            'status'        => 'Belum dilelang'
         ]);
         
         $this->emit('productStored');
+        
     }
 }
 

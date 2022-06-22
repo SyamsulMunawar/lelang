@@ -14,12 +14,10 @@ class Update extends Component
     use WithFileUploads;
 
     public $productId;
-    public $id_barang;
-    public $id_pelanggan;
     public $nama_barang;
     public $kategori;
-    public $size;
-    public $harga;
+    public $ukuran;
+    public $harga_awal;
     public $deskripsi;
     public $image;
     public $imageOld;
@@ -39,12 +37,10 @@ class Update extends Component
     public function editProductHandler($product)
     {
         $this->productId    = $product['id'];
-        $this->id_barang    = $product['id_barang'];
-        $this->id_pelanggan = $product['id_pelanggan'];
         $this->nama_barang  = $product['nama_barang'];
         $this->kategori     = $product['kategori'];
-        $this->size         = $product['size'];
-        $this->harga        = $product['harga'];
+        $this->ukuran       = $product['ukuran'];
+        $this->harga_awal   = $product['harga_awal'];
         $this->deskripsi    = $product['deskripsi'];
         $this->imageOld     = asset('/storage/'.$product['image']);
 
@@ -53,14 +49,12 @@ class Update extends Component
     public function update()
     {
         $this->validate([
-            'id_barang'     => 'required',
-            'id_pelanggan'  => 'required',
-            'nama_barang'   => 'required:max:50',
-            'kategori'      => 'required',
-            'size'          => 'required',
-            'image'         => 'required|image|max:2048',
-            'harga'         => 'required|numeric',
-            'deskripsi'     => 'required|max:180'
+            'nama_barang'       => 'required:max:50',
+            'kategori'          => 'required',
+            'ukuran'            => 'required',
+            'image'             => 'image|max:2048',
+            'harga_awal'        => 'required|numeric',
+            'deskripsi'         => 'required|max:180'
         ]);
 
         if($this->productId)
@@ -80,19 +74,18 @@ class Update extends Component
                 $this->image->storeAs('public', $imageName, 'local');
 
                 $image = $imageName;
+
             } else {
                 $image = $product->image;
             }
 
             $product->update([
-                'id_barang'     => $this->id_barang,
-                'id_pelanggan'  => $this->id_pelanggan,
                 'nama_barang'   => $this->nama_barang,
                 'kategori'      => $this->kategori,
-                'size'          => $this->size,
-                'harga'         => $this->harga,
+                'ukuran'        => $this->ukuran,
+                'harga_awal'    => $this->harga_awal,
                 'deskripsi'     => $this->deskripsi,
-                'image'         => $this->image
+                'image'         => $image
             ]);
 
             $this->emit('productUpdated');
